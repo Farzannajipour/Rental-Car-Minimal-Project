@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.suggestion {
+  cursor: pointer;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.suggestion:hover {
+  background: grey;
+}
+.menu {
+  height: 150px;
+  background: red;
+}
