@@ -8,7 +8,7 @@ import { FormControl } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStateValue } from "../../../contexts/states";
-import useDebounce from "../../../hooks/useDebounce";
+//import useDebounce from "../../../hooks/useDebounce";
 import { shouldFetchRentalCars } from "./helpers/minimum-character-checker";
 
 
@@ -35,23 +35,30 @@ export default function SearchBox() {
     const [ isSearching, setIsSearching ] = useState( false );
     const { text } = states;
     // TODO - we can use this hook in the later stage
-    const debouncedSearchTerm = useDebounce( text, 500 );
+    // const debouncedSearchTerm = useDebounce( text, 500 );
 
+
+    // TODO - fix ESLint dependency and remove the comment
     useEffect( () => {
-        if (text) {
-            setIsSearching( true );
-            searchCharacters( text ).then( ( results ) => {
+        function changeSuggestions() {
+            if (text) {
+                setIsSearching( true );
+                searchCharacters( text ).then( ( results ) => {
+                    setIsSearching( false );
+                    if (shouldFetchRentalCars( text )) {
+                        updateSuggestions( results );
+                    } else {
+                        updateResults( [] );
+                    }
+                } );
+            } else {
+                updateResults( [] );
                 setIsSearching( false );
-                if (shouldFetchRentalCars( text )) {
-                    updateSuggestions( results );
-                } else {
-                    updateResults( [] );
-                }
-            } );
-        } else {
-            updateResults( [] );
-            setIsSearching( false );
+            }
         }
+
+        changeSuggestions();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ text ] );
 
 

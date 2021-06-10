@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useStateValue } from "../../../contexts/states";
 import { SET_INPUT_TEXT } from "../../../constants";
-import styles from "./results.module.scss"
+import styles from "./results.module.scss";
 import { Box } from "@material-ui/core";
 import LocationChips from "./location-chip/location-chip";
 
