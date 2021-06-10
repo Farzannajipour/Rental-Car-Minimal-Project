@@ -1,11 +1,16 @@
 import React from 'react';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getRentalCars } from "../../../adapters/api"
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { FormControl } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStateValue } from "../../../contexts/states";
+import useDebounce from "../../../hooks/useDebounce";
+
+
 import {
     MINIMUM_REQUIRED_INPUT_LENGTH, NUMBER_OF_RESULT_REQUIRED,
     UPDATE_RENTAL_CAR_RESULTS, SET_INPUT_TEXT, SET_NUMBER_FOUND
@@ -26,17 +31,29 @@ const useStyles = makeStyles( ( theme ) => ( {
 
 export default function SearchBox() {
     const [ states, dispatch ] = useStateValue();
+    const [ isSearching, setIsSearching ] = useState( false );
     const { text } = states;
+    // TODO - we can use this hook in the later stage
+    const debouncedSearchTerm = useDebounce( text, 500 );
+
     useEffect( () => {
-        checkTextCharacter( text );
+        if (text) {
+            console.log( text );
+            setIsSearching( true );
+            searchCharacters( text ).then( ( results ) => {
+                setIsSearching( false );
+                if (shouldFetchRentalCars( text )) {
+                    updateSuggestions( results );
+                } else {
+                    updateResults( [] );
+                }
+            } );
+        } else {
+            updateResults( [] );
+            setIsSearching( false );
+        }
     }, [ text ] );
 
-
-    const checkTextCharacter = inputValue => {
-        if (inputValue.length <= MINIMUM_REQUIRED_INPUT_LENGTH) {
-            updateResults( [] );
-        }
-    };
 
     const updateResults = newResults => {
         dispatch( {
@@ -61,50 +78,59 @@ export default function SearchBox() {
 
 
     const updateSuggestions = newSuggestions => {
-        console.log(newSuggestions);
         updateNumberFound( newSuggestions.numFound );
         updateResults( newSuggestions.docs );
     };
 
 
-    const onChangeHandler = ( newValue ) => {
-        updateText( newValue );
-        if (shouldFetchRentalCars( newValue )) {
-            getRentalCars( newValue, NUMBER_OF_RESULT_REQUIRED )
-                .then( ( response ) => updateSuggestions( response.data.results ) )
-                .catch( ( error ) => {
-                    console.error( error );
-                    return [];
-                } );
-        }
+    const searchCharacters = search => {
+        return getRentalCars( search, NUMBER_OF_RESULT_REQUIRED )
+            .then( ( response ) => ( response.data.results ) )
+            .catch( ( error ) => {
+                console.error( error );
+                return [];
+            } );
     };
+
+    const shouldFetchRentalCars = input => {
+        return ( input && input.length > MINIMUM_REQUIRED_INPUT_LENGTH );
+    };
+
+
     const classes = useStyles();
     return (
         <React.Fragment>
-            <TextField
-                id="rental-card-input"
-                onChange={ e => onChangeHandler( e.target.value ) }
-                value={ text }
-                placeholder="Pick-up Location: "
-                variant="filled"
-                className={ classes.textField }
-                fullWidth
-                InputLabelProps={ {
-                    shrink: true,
-                } }
-                label="Pick-up location:"
-                InputProps={ {
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <LocationOnIcon/>
-                        </InputAdornment>
-                    ),
-                } }
-            />
+            <FormControl fullWidth role="search">
+                <TextField
+                    id="rental-card-input"
+                    onChange={ e => updateText( e.target.value ) }
+                    value={ text }
+                    placeholder="Pick-up Location: "
+                    variant="filled"
+                    className={ classes.textField }
+                    InputLabelProps={ {
+                        'shrink': true,
+                        'aria-label': 'Pick-up Location'
+                    } }
+                    label="Pick-up location:"
+                    InputProps={ {
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <LocationOnIcon/>
+                            </InputAdornment>
+                        ),
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {
+                                    isSearching &&
+                                    <CircularProgress/>
+                                }
+                            </InputAdornment>
+                        ),
+                    } }
+                />
+            </FormControl>
         </React.Fragment>
     )
 }
 
-function shouldFetchRentalCars( input ) {
-    return ( input && input.length > MINIMUM_REQUIRED_INPUT_LENGTH );
-}

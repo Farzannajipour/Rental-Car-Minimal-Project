@@ -1,18 +1,45 @@
+$chip-min-width: 5rm;
+$chip-color: #fff !important;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
 
 .menu {
   height: 150px;
   background: red;
+}
+
+.airport {
+  background-color: #961412 !important;
+  color: $chip-color !important;
+  min-width: $chip-min-width;
+}
+
+.city {
+  background-color: #0A63B0 !important;
+  color: $chip-color !important;
+  min-width: $chip-min-width;
+}
+
+.region {
+  background-color: #017C44 !important;
+  color: $chip-color !important;
+  min-width: $chip-min-width;
+}
+
+.station {
+  background-color: #474747 !important;
+  color: $chip-color !important;
+  min-width: $chip-min-width;
 }
