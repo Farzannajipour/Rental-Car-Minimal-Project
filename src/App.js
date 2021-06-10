@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Box } from "@material-ui/core";
 
 
-import SearchBox from "./components/rental-car/search-box/search-box";
 import RentalCar from './components/rental-car/rental-car';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from './constants';
-import { useStateValue } from './contexts/states';
-import Result from "./components/rental-car/results/results";
+
+import React from "react";
 
 const theme = createMuiTheme( {
     palette: {
@@ -19,7 +17,8 @@ const theme = createMuiTheme( {
             main: SECONDARY_COLOR,
         },
         custom: {
-            btn: "#fff"
+            btn: "#fff",
+            color: "#fff"
         }
     },
 } );
@@ -31,19 +30,7 @@ function App() {
         <ThemeProvider theme={ theme }>
             <Box display="flex" bgcolor="primary.main" minHeight="50vh">
                 <Container maxWidth="md">
-                    <Box display="flex" flexDirection="column" justifyContent="space-around" alignItems="flex-start"
-                         height="100%">
-                        {/* TOP HALF */ }
-                        <Box display="flex" bgcolor="secondary.main" width="100%">
-
-                        </Box>
-                        {/* BOTTOM HALF */ }
-                        <Box display="flex" flexWrap="wrap" bgcolor="secondary.main" borderRadius={ 10 } width="100%">
-                            {/*<SearchBox/>*/ }
-                            <SearchBox/>
-                            <Result/>
-                        </Box>
-                    </Box>
+                    <RentalCar/>
                 </Container>
             </Box>
         </ThemeProvider>

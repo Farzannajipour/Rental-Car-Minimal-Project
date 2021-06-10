@@ -61,6 +61,7 @@ export default function SearchBox() {
 
 
     const updateSuggestions = newSuggestions => {
+        console.log(newSuggestions);
         updateNumberFound( newSuggestions.numFound );
         updateResults( newSuggestions.docs );
     };

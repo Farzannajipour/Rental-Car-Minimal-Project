@@ -1,0 +1,19 @@
+$border-color: #000;
+$background-hover-color: #e7f4fe;
+$background-default-color: #fff;
+
+.suggestion {
+  cursor: pointer;
+  border: 1px solid $border-color;
+  border-top: 0;
+  background: $background-default-color;
+  padding: 15px;
+
+  &:hover {
+    background: #e7f4fe;
+  }
+}
+
+.description {
+  padding-left: 8px;
+}
