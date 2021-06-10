@@ -8,6 +8,7 @@ import SearchBox from "./components/rental-car/search-box/search-box";
 import RentalCar from './components/rental-car/rental-car';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from './constants';
 import { useStateValue } from './contexts/states';
+import Result from "./components/rental-car/results/results";
 
 const theme = createMuiTheme( {
     palette: {
@@ -37,9 +38,10 @@ function App() {
 
                         </Box>
                         {/* BOTTOM HALF */ }
-                        <Box display="flex" bgcolor="secondary.main" borderRadius={ 10 } width="100%">
+                        <Box display="flex" flexWrap="wrap" bgcolor="secondary.main" borderRadius={ 10 } width="100%">
                             {/*<SearchBox/>*/ }
                             <SearchBox/>
+                            <Result/>
                         </Box>
                     </Box>
                 </Container>

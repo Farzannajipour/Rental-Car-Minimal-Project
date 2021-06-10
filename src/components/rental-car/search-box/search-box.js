@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useEffect } from "react";
 import { getRentalCars } from "../../../adapters/api"
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStateValue } from "../../../contexts/states";
-import { MINIMUM_REQUIRED_INPUT_LENGTH, UPDATE_RENTAL_CAR_RESULTS } from '../../../constants';
+import {
+    MINIMUM_REQUIRED_INPUT_LENGTH, NUMBER_OF_RESULT_REQUIRED,
+    UPDATE_RENTAL_CAR_RESULTS, SET_INPUT_TEXT, SET_NUMBER_FOUND
+} from '../../../constants';
 
 const useStyles = makeStyles( ( theme ) => ( {
     textField: {
@@ -21,52 +25,66 @@ const useStyles = makeStyles( ( theme ) => ( {
 
 
 export default function SearchBox() {
-    const [ text, setText ] = useState( '' );
-
     const [ states, dispatch ] = useStateValue();
+    const { text } = states;
+    useEffect( () => {
+        checkTextCharacter( text );
+    }, [ text ] );
 
-    function updateResults( newResults ) {
+
+    const checkTextCharacter = inputValue => {
+        if (inputValue.length <= MINIMUM_REQUIRED_INPUT_LENGTH) {
+            updateResults( [] );
+        }
+    };
+
+    const updateResults = newResults => {
         dispatch( {
             type: UPDATE_RENTAL_CAR_RESULTS,
             value: newResults
         } )
-    }
+    };
 
-    // useEffect( () => {
-    //     fetchRentalCarsByInput( text );
-    // }, [ text ] );
+    const updateNumberFound = number => {
+        dispatch( {
+            type: SET_NUMBER_FOUND,
+            value: number
+        } )
+    };
+
+    const updateText = newValue => {
+        dispatch( {
+            type: SET_INPUT_TEXT,
+            value: newValue
+        } )
+    };
+
+
+    const updateSuggestions = newSuggestions => {
+        updateNumberFound( newSuggestions.numFound );
+        updateResults( newSuggestions.docs );
+    };
+
+
     const onChangeHandler = ( newValue ) => {
+        updateText( newValue );
         if (shouldFetchRentalCars( newValue )) {
-            getRentalCars( newValue, MINIMUM_REQUIRED_INPUT_LENGTH )
-                .then( ( response ) => updateResults( response.data.results.docs ) )
+            getRentalCars( newValue, NUMBER_OF_RESULT_REQUIRED )
+                .then( ( response ) => updateSuggestions( response.data.results ) )
                 .catch( ( error ) => {
                     console.error( error );
                     return [];
                 } );
         }
-
-
-        // let matches = [];
-        // if (newValue.length > 0) {
-        //     matches = users.filter(user => {
-        //         const regex = new RegExp(`${text}`,"gi");
-        //         return user.email.match(regex);
-        //     })
-        // }
-        // console.log(matches);
-        // setSuggestions(matches);
-        setText( newValue )
     };
     const classes = useStyles();
     return (
         <React.Fragment>
-            {/*<input type="text" placeholder="Pick-up location:" onChange={ e => onChangeHandler( e.target.value ) }*/ }
-            {/*       width="50%"*/ }
-            {/*       value={ text } className="col-md-12 input" style={ { margin: 10 } }/>*/ }
             <TextField
-                id="input-with-icon-textfield"
+                id="rental-card-input"
                 onChange={ e => onChangeHandler( e.target.value ) }
                 value={ text }
+                placeholder="Pick-up Location: "
                 variant="filled"
                 className={ classes.textField }
                 fullWidth

@@ -20,7 +20,7 @@ code {
 }
 
 .suggestion:hover {
-  background: grey;
+  background: #e7f4fe;
 }
 .menu {
   height: 150px;

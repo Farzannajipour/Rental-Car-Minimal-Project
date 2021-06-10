@@ -1,40 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import { useStateValue } from "../../../contexts/states";
-
-const useStyles = makeStyles( ( theme ) => ( {
-    textField: {
-        backgroundColor: "#fff",
-        margin: theme.spacing( 3 ),
-        border: "none",
-        borderRadius: "10px"
-    },
-    input: {
-        color: 'white'
-    }
-} ) );
+import { SET_INPUT_TEXT } from "../../../constants";
 
 
 export default function Result() {
-    const [ states ] = useStateValue();
-    const { suggestions } = states;
-    const [ selected, setSelected ] = useState( [] );
-    const classes = useStyles();
-    const onSuggestHandler = ( text ) => {
-        setSelected( [] );
+    const [ states, dispatch ] = useStateValue();
+    const { suggestions, numFound } = states;
+    const isNumFoundZero = numFound === 0;
+    const [ , setSelected ] = useState( [] );
+    const updateText = newValue => {
+        dispatch( {
+            type: SET_INPUT_TEXT,
+            value: newValue
+        } )
     };
+    const onSuggestHandler = suggestion => {
+        setSelected( suggestion );
+        updateText( suggestion.name );
+    };
+
+    const getTypeOfBooking = bookingId => {
+        return bookingId.match( /[^-]*/i )[ 0 ]
+    };
+
     return (
         <div>
-            { suggestions && suggestions.map( ( suggestion, i ) =>
-                <div key={ i }
-                     onClick={ () => onSuggestHandler( suggestion.email ) }
-                     onBlur={ () => {
-                         setTimeout( () => {
-                             setSuggestions( [] )
-                         }, 100 )
-                     } }
-                     className="col-md-12 suggestion justify-content-center"> { suggestion.email } </div>
-            ) }
+            { isNumFoundZero ?
+                <div className="suggestion">
+                    { [ ...suggestions ].shift().name }
+                </div> :
+                suggestions && suggestions.map( ( suggestion, i ) =>
+                    <div key={ i }
+                         onClick={ () => onSuggestHandler( suggestion ) }
+                         onBlur={ () => {
+                             setTimeout( () => {
+                                 setSelected( [] )
+                             }, 100 )
+                         } }
+                         className="justify-content-center suggestion">
+
+                        { suggestion.name } { suggestion.iata && ( suggestion.iata ) } <br/>
+                        { suggestion.city } , { suggestion.region } , { suggestion.country } <br/>
+                        { suggestion.bookingId && getTypeOfBooking( suggestion.bookingId ) }
+                    </div>
+                )
+            }
         </div>
     )
 }
