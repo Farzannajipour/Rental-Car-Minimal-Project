@@ -5,7 +5,6 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/lab": "^4.0.0-alpha.58",
-    "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
@@ -19,14 +18,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -42,10 +40,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.14.4",
-    "@babel/preset-react": "^7.13.13",
     "@material-ui/icons": "^4.11.2",
-    "jest": "^27.0.4",
     "react-test-renderer": "^17.0.2"
   }
 }
