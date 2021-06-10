@@ -1,14 +1,10 @@
 import React from 'react';
 import Chip from "@material-ui/core/Chip";
 import classNames from "classnames";
+import { capitalize, getTypeOfBooking } from "./helpers/decorate";
 
 
 export default function LocationChips( props ) {
-    const getTypeOfBooking = bookingId => {
-        return bookingId.match( /[^-]*/i )[ 0 ];
-    };
-    const capitalize = s => ( s && s[ 0 ].toUpperCase() + s.slice( 1 ) ) || "";
-
     return (
         <Chip
             label={ capitalize( getTypeOfBooking( props.bookingId ) ) }
@@ -16,7 +12,6 @@ export default function LocationChips( props ) {
             className={ classNames( getTypeOfBooking( props.bookingId ) ) }
         />
     );
-
 }
 
 

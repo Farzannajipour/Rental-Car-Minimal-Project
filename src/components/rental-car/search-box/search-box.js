@@ -9,10 +9,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStateValue } from "../../../contexts/states";
 import useDebounce from "../../../hooks/useDebounce";
+import { shouldFetchRentalCars } from "./helpers/minimum-character-checker";
 
 
 import {
-    MINIMUM_REQUIRED_INPUT_LENGTH, NUMBER_OF_RESULT_REQUIRED,
+    NUMBER_OF_RESULT_REQUIRED,
     UPDATE_RENTAL_CAR_RESULTS, SET_INPUT_TEXT, SET_NUMBER_FOUND
 } from '../../../constants';
 
@@ -89,10 +90,6 @@ export default function SearchBox() {
                 console.error( error );
                 return [];
             } );
-    };
-
-    const shouldFetchRentalCars = input => {
-        return ( input && input.length > MINIMUM_REQUIRED_INPUT_LENGTH );
     };
 
 
