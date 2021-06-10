@@ -28,7 +28,7 @@ function App() {
 
     return (
         <ThemeProvider theme={ theme }>
-            <Box display="flex" bgcolor="primary.main" minHeight="50vh">
+            <Box display="flex" bgcolor="primary.main" minHeight="100vh">
                 <Container maxWidth="md">
                     <RentalCar/>
                 </Container>

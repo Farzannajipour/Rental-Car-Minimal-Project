@@ -1,4 +1,4 @@
-$chip-min-width: 5rm;
+$chip-min-width: 5 rm;
 $chip-color: #fff !important;
 
 body {
@@ -22,24 +22,24 @@ code {
 
 .airport {
   background-color: #961412 !important;
-  color: $chip-color !important;
+  color: $chip-color;
   min-width: $chip-min-width;
 }
 
 .city {
   background-color: #0A63B0 !important;
-  color: $chip-color !important;
+  color: $chip-color;
   min-width: $chip-min-width;
 }
 
 .region {
   background-color: #017C44 !important;
-  color: $chip-color !important;
+  color: $chip-color;
   min-width: $chip-min-width;
 }
 
 .station {
   background-color: #474747 !important;
-  color: $chip-color !important;
+  color: $chip-color;
   min-width: $chip-min-width;
 }

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useStateValue } from "../../../contexts/states";
 import { SET_INPUT_TEXT } from "../../../constants";
 import styles from "./results.module.scss"
-import Chip from '@material-ui/core/Chip';
 import { Box } from "@material-ui/core";
 import LocationChips from "./location-chip/location-chip";
 
@@ -24,7 +23,7 @@ export default function Result() {
 
 
     return (
-        <div>
+        <Box borderRadius={ 10 }>
             {
                 suggestions && suggestions.map( ( suggestion, i ) =>
                     <Box display="flex" flexDirection="row"
@@ -38,33 +37,6 @@ export default function Result() {
                          className={ [ styles.suggestion ] }>
                         { suggestion.bookingId && <LocationChips bookingId={ suggestion.bookingId }/> }
 
-
-
-                        {/*{ suggestion.bookingId && getTypeOfBooking( suggestion.bookingId ) === 'Region' &&*/}
-                        {/*<Chip*/}
-                        {/*    label={ getTypeOfBooking( suggestion.bookingId ) }*/}
-                        {/*    size="small"*/}
-                        {/*    className={ classes.region }*/}
-                        {/*/>*/}
-                        {/*}*/}
-
-                        {/*{ getTypeOfBooking( suggestion.bookingId ) === 'Airport' &&*/}
-                        {/*<Chip*/}
-                        {/*    label={ getTypeOfBooking( suggestion.bookingId ) }*/}
-                        {/*    size="small"*/}
-                        {/*    className={ classes.airport }*/}
-                        {/*/>*/}
-                        {/*}*/}
-
-                        {/*{ suggestion.bookingId && getTypeOfBooking( suggestion.bookingId ) === 'Station' &&*/}
-                        {/*<Chip*/}
-                        {/*    label={ getTypeOfBooking( suggestion.bookingId ) }*/}
-                        {/*    size="small"*/}
-                        {/*    className={ classes.station }*/}
-                        {/*/>*/}
-                        {/*}*/}
-
-
                         <Box display="flex" flexDirection="column" className={ styles.description }>
                             <Box>{ suggestion.name } { suggestion.iata && ( suggestion.iata ) }</Box>
                             <Box>
@@ -76,7 +48,7 @@ export default function Result() {
                     </Box>
                 )
             }
-        </div>
+        </Box>
     )
 }
 

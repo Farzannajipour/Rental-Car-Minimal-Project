@@ -38,7 +38,6 @@ export default function SearchBox() {
 
     useEffect( () => {
         if (text) {
-            console.log( text );
             setIsSearching( true );
             searchCharacters( text ).then( ( results ) => {
                 setIsSearching( false );
