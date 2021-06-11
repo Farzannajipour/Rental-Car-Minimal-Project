@@ -1,6 +1,6 @@
 # TBU front-end technical test
 
-This project is related to the booking frontend assignment. It is available by this URL
+This project is related to the rental car frontend assignment. It is available by this URL
   [URL](https://booking-technical-test-94lut8m48-farzannajipour.vercel.app/0) . I have deployed it by Vercel.
 
 ## Available Scripts

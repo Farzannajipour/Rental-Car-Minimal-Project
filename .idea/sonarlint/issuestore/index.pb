@@ -3,8 +3,6 @@
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 <
 package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
-=
-src/index.css,c/5/c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 A
 public/index.html,f/4/f43ecdf8d666ee908aacce037b4cd72159e4741b
 <
@@ -26,3 +24,34 @@ b
 2src/components/rental-car/search-box/search-box.js,7/8/78d84f4453ac46536844ef0e1764328629d0c77b
 \
 ,src/components/rental-car/results/results.js,a/1/a169b16b1378adda61ab42c6e211c1287f000c30
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+G
+src/styles/_mixins.scss,1/c/1c04593c47340756869bbc8a68c97725ea56e495
+J
+src/styles/_variables.scss,6/e/6e88623165185942088538437e725abdb02427a4
+F
+src/styles/styles.scss,a/c/ac74b333a3dde69959b6aae39c9a71f6bb669afd
+>
+src/index.scss,5/b/5bfd084cc3a318b78f32da1cd49fc9f987fb897f
+e
+5src/components/rental-car/results/results.module.scss,7/5/75aec14c77154d40551924b36cf4a493a999ae33
+y
+Isrc/components/rental-car/search-box/helpers/minimum-character-checker.js,b/e/beaccda5b61286b25022043785b4c8755f7541aa
+f
+6__tests__/search-box/minimum-character-checker-test.js,6/5/65442653fbab99b2af7f24d73669ef49f4b4fa7a
+P
+ __tests__/api/get-rental-cars.js,4/6/466509a89b4a811edf8935a456a951396234ece4
+s
+Csrc/components/rental-car/results/location-chip/helpers/decorate.js,5/8/58de9df5ee7a9b17491d803170ed82ec0529d501
+a
+1__tests__/results/location-chip/decorator-test.js,b/8/b8bfa50fd1597a1dfe818cf55639d58c9eef23f2
+p
+@src/components/rental-car/results/location-chip/location-chip.js,c/9/c9166c9f0d7dc186bbd931c78e6a091117c05d0a
+A
+src/setupTests.js,b/7/b7e8d8f421068b8d51c89805d2035e747be2ff17
+D
+src/jest.config.json,a/d/ad233986b60a34f81fce617eb45a3405c7cd19ef
+H
+src/hooks/useDebounce.js,a/b/ab340643b1e305da4568881357670c8aec719aaf

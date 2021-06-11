@@ -1,6 +1,6 @@
 {
-  "short_name": "Booking assignment",
-  "name": "Create React App Sample",
+  "short_name": "Rental Car",
+  "name": "Rental Car Minimal",
   "icons": [
     {
       "src": "favicon.ico",
